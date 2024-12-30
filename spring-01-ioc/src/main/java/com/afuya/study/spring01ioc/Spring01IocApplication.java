@@ -11,9 +11,14 @@ import java.util.Map;
 @SpringBootApplication
 public class Spring01IocApplication {
 
+    /**
+     * (1) 配置类也是容器中的组件
+     * (2) MVC 分层注解，@Controller、@Service、@Repository底层都是@Component,可以相互替换
+     *      此外@configuration底层也是@Component
+     * @param args
+     */
     public static void main(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
-        // 配置类也是容器中的组件
         for (String beanDefinitionName : ioc.getBeanDefinitionNames()) {
             System.out.println("beanName = " + beanDefinitionName);
         }
