@@ -2,24 +2,30 @@ package com.afuya.study.spring01ioc;
 
 import com.afuya.study.spring01ioc.bean.Dog;
 import com.afuya.study.spring01ioc.bean.Person;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import java.util.Map;
 
 @SpringBootApplication
 public class Spring01IocApplication {
 
+    public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        // 配置类也是容器中的组件
+        for (String beanDefinitionName : ioc.getBeanDefinitionNames()) {
+            System.out.println("beanName = " + beanDefinitionName);
+        }
+    }
+
     /**
      * （1）ioc容器创建过程中，就会创建组件
      * （2）创建的组件默认是单实例的，每次获取组件都是从容器中获取
+     *
      * @param args
      */
-    public static void main(String[] args) {
+    public static void fun2(String[] args) {
         System.out.println("===========创建容器前=============");
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         System.out.println("===========创建容器后=============");
@@ -58,31 +64,6 @@ public class Spring01IocApplication {
         for (Map.Entry<String, Person> entry : beansOfType.entrySet()) {
             System.out.println(entry.getKey() + ":" + entry.getValue());
         }
-    }
-
-    // 给容器中注册一个组件，这个组件默认的id就是方法名首字母小写
-    @Bean("person008")
-    public Person person007() {
-        Person person = new Person();
-        person.setName("张三");
-        person.setAge(18);
-        person.setAddress("北京朝阳区");
-        return person;
-    }
-
-    @Bean
-    public Dog dog() {
-        Dog dog = new Dog();
-        return dog;
-    }
-
-    @Bean
-    public Person person001() {
-        Person person = new Person();
-        person.setName("lisi");
-        person.setAge(20);
-        person.setAddress("上海浦东区");
-        return person;
     }
 
 }
