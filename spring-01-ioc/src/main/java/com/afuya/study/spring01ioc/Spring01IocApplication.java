@@ -1,17 +1,16 @@
 package com.afuya.study.spring01ioc;
 
+import ch.qos.logback.core.CoreConstants;
 import com.afuya.study.outside.TestService;
 import com.afuya.study.spring01ioc.bean.Dog;
 import com.afuya.study.spring01ioc.bean.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Map;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.afuya.study")
 public class Spring01IocApplication {
 
     /**
@@ -23,6 +22,12 @@ public class Spring01IocApplication {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         TestService bean = ioc.getBean(TestService.class);
         System.out.println(bean);
+//        CoreConstants bean2 = ioc.getBean(CoreConstants.class);
+//        System.out.println(bean2);
+//        Object coreConstant001 = ioc.getBean("coreConstant001");
+//        System.out.println(coreConstant001);
+        Map<String, CoreConstants> beans = ioc.getBeansOfType(CoreConstants.class);
+        beans.forEach((k, v) -> { System.out.println(k + ":" + v); });
     }
 
     /**
