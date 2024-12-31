@@ -13,12 +13,21 @@ import java.util.Map;
 @SpringBootApplication
 public class Spring01IocApplication {
 
+    public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        System.out.println("==========ioc容器启动完成==========");
+        Dog dog1 = ioc.getBean(Dog.class);
+        System.out.println(dog1);
+        Dog dog2 = ioc.getBean(Dog.class);
+        System.out.println(dog2);
+    }
+
     /**
      * （1）ioc默认只扫描主程序所在的包及其子包
      * （2）类必须有 spring相关的注解才会被扫描到
      * @param args
      */
-    public static void main(String[] args) {
+    public static void func4(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         TestService bean = ioc.getBean(TestService.class);
         System.out.println(bean);
