@@ -1,15 +1,29 @@
 package com.afuya.study.spring01ioc;
 
+import com.afuya.study.outside.TestService;
 import com.afuya.study.spring01ioc.bean.Dog;
 import com.afuya.study.spring01ioc.bean.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Map;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.afuya.study")
 public class Spring01IocApplication {
+
+    /**
+     * （1）ioc默认只扫描主程序所在的包及其子包
+     * （2）类必须有 spring相关的注解才会被扫描到
+     * @param args
+     */
+    public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        TestService bean = ioc.getBean(TestService.class);
+        System.out.println(bean);
+    }
 
     /**
      * (1) 配置类也是容器中的组件
@@ -17,7 +31,7 @@ public class Spring01IocApplication {
      *      此外@configuration底层也是@Component
      * @param args
      */
-    public static void main(String[] args) {
+    public static void fun3(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         for (String beanDefinitionName : ioc.getBeanDefinitionNames()) {
             System.out.println("beanName = " + beanDefinitionName);
