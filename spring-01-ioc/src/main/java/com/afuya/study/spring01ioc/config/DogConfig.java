@@ -3,6 +3,7 @@ package com.afuya.study.spring01ioc.config;
 import com.afuya.study.spring01ioc.bean.Dog;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -16,19 +17,21 @@ public class DogConfig {
     /**
      * （1）@Scope("prototype") 非单例：
      * 每次从容器中获取对象，都会创建一个新的实例；
-     * 容器启动的过程中不会创建组件的实例对象，什么时候获取，什么时候创建
+     * 容器启动的过程中不会创建组件的实例对象，什么时候获取，什么时候创建。
      * （2）@Scope("singleton") 单例：
      * 在整个应用程序中只创建一个实例；
-     * 容器启动的过程中会创建组件的实例对象，容器启动完成前就会创建好
+     * 容器启动的过程中会创建组件的实例对象，容器启动完成前就会创建好；
+     * 单例模式下，可以继续调整懒加载的模式@lazy，什么时候获取，什么时候创建。
      * （3）@Scope("request") 请求：
-     * 每次HTTP请求都会创建一个新的实例；
+     * 每次HTTP请求都会创建一个新的实例。
      * （4）@Scope("session") 会话：
-     * 每次HTTP会话都会创建一个新的实例；
+     * 每次HTTP会话都会创建一个新的实例。
      *
      * @return
      */
     @Bean
     @Scope("singleton")
+    @Lazy
 //    @Scope("prototype")
     public Dog dog() {
         return new Dog();
