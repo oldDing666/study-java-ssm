@@ -2,6 +2,7 @@ package com.afuya.study.spring01ioc;
 
 import ch.qos.logback.core.CoreConstants;
 import com.afuya.study.outside.TestService;
+import com.afuya.study.spring01ioc.bean.Car;
 import com.afuya.study.spring01ioc.bean.Dog;
 import com.afuya.study.spring01ioc.bean.Person;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +14,24 @@ import java.util.Map;
 @SpringBootApplication
 public class Spring01IocApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+
+        /**
+         * 不需要先获取工厂对象，而是直接从容器中获取 bean
+         */
+        Car bean1 = ioc.getBean(Car.class);
+        Car bean2 = ioc.getBean(Car.class);
+        System.out.println(bean1 == bean2);
+
+        /**
+         * beanFactory制造的 bean，name是 beanFactory的类名，类型是泛型中指定的类型
+         */
+        Map<String, Car> beansOfType = ioc.getBeansOfType(Car.class);
+        beansOfType.forEach((k, v) -> System.out.println(k + " : " + v));
+    }
+
+    public static void func5(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         System.out.println("==========ioc容器启动完成==========");
         Dog dog1 = ioc.getBean(Dog.class);
@@ -25,6 +43,7 @@ public class Spring01IocApplication {
     /**
      * （1）ioc默认只扫描主程序所在的包及其子包
      * （2）类必须有 spring相关的注解才会被扫描到
+     *
      * @param args
      */
     public static void func4(String[] args) {
@@ -36,13 +55,16 @@ public class Spring01IocApplication {
 //        Object coreConstant001 = ioc.getBean("coreConstant001");
 //        System.out.println(coreConstant001);
         Map<String, CoreConstants> beans = ioc.getBeansOfType(CoreConstants.class);
-        beans.forEach((k, v) -> { System.out.println(k + ":" + v); });
+        beans.forEach((k, v) -> {
+            System.out.println(k + ":" + v);
+        });
     }
 
     /**
      * (1) 配置类也是容器中的组件
      * (2) MVC 分层注解，@Controller、@Service、@Repository底层都是@Component,可以相互替换
-     *      此外@configuration底层也是@Component
+     * 此外@configuration底层也是@Component
+     *
      * @param args
      */
     public static void fun3(String[] args) {
