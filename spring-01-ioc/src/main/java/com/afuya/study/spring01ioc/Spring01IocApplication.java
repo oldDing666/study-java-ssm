@@ -14,7 +14,15 @@ import java.util.Map;
 @SpringBootApplication
 public class Spring01IocApplication {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        Map<String, Person> beansOfType = ioc.getBeansOfType(Person.class);
+        System.out.println(beansOfType);
+        String os = ioc.getEnvironment().getProperty("OS");
+        System.out.println(os);
+    }
+
+    public static void fun6(String[] args) throws Exception {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
 
         /**
