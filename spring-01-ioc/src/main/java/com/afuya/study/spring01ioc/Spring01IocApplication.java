@@ -6,6 +6,7 @@ import com.afuya.study.spring01ioc.bean.Car;
 import com.afuya.study.spring01ioc.bean.Dog;
 import com.afuya.study.spring01ioc.bean.Person;
 import com.afuya.study.spring01ioc.controller.UserController;
+import com.afuya.study.spring01ioc.repository.UserDao;
 import com.afuya.study.spring01ioc.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,12 @@ import java.util.Map;
 public class Spring01IocApplication {
 
     public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        UserDao userDao = ioc.getBean(UserDao.class);
+        System.out.println(userDao);
+    }
+
+    public static void func9(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         UserService userService = ioc.getBean(UserService.class);
         System.out.println(userService);
