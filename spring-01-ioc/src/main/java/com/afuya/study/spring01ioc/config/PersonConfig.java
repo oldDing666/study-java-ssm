@@ -6,6 +6,7 @@ import com.afuya.study.spring01ioc.bean.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author: afuya
@@ -19,6 +20,7 @@ public class PersonConfig {
 
     // 给容器中注册一个组件，这个组件默认的id就是方法名首字母小写
     @Bean("person008")
+    @Primary
     public Person person007() {
         Person person = new Person();
         person.setName("张三");
