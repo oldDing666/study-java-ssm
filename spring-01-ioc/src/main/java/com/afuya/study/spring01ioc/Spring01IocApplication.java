@@ -7,6 +7,7 @@ import com.afuya.study.spring01ioc.bean.Cat;
 import com.afuya.study.spring01ioc.bean.Dog;
 import com.afuya.study.spring01ioc.bean.Person;
 import com.afuya.study.spring01ioc.controller.UserController;
+import com.afuya.study.spring01ioc.repository.DataSourceDao;
 import com.afuya.study.spring01ioc.repository.UserDao;
 import com.afuya.study.spring01ioc.service.UserService;
 import org.springframework.boot.SpringApplication;
@@ -17,8 +18,13 @@ import java.util.Map;
 
 @SpringBootApplication
 public class Spring01IocApplication {
-
     public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        DataSourceDao dataSourceDao = ioc.getBean(DataSourceDao.class);
+        System.out.println(dataSourceDao);
+    }
+
+    public static void func11(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         Cat cat = ioc.getBean(Cat.class);
         System.out.println(cat);
