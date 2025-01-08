@@ -2,10 +2,7 @@ package com.afuya.study.spring01ioc;
 
 import ch.qos.logback.core.CoreConstants;
 import com.afuya.study.outside.TestService;
-import com.afuya.study.spring01ioc.bean.Car;
-import com.afuya.study.spring01ioc.bean.Cat;
-import com.afuya.study.spring01ioc.bean.Dog;
-import com.afuya.study.spring01ioc.bean.Person;
+import com.afuya.study.spring01ioc.bean.*;
 import com.afuya.study.spring01ioc.controller.UserController;
 import com.afuya.study.spring01ioc.repository.DataSourceDao;
 import com.afuya.study.spring01ioc.repository.UserDao;
@@ -19,6 +16,13 @@ import java.util.Map;
 @SpringBootApplication
 public class Spring01IocApplication {
     public static void main(String[] args) {
+        ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
+        System.out.println("==========ioc容器启动完成==========");
+        User user = ioc.getBean(User.class);
+        System.out.println("user = " + user);
+    }
+
+    public static void func12(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(Spring01IocApplication.class, args);
         DataSourceDao dataSourceDao = ioc.getBean(DataSourceDao.class);
         System.out.println(dataSourceDao);
