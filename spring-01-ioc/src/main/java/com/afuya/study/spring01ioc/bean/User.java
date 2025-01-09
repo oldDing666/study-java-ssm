@@ -1,5 +1,7 @@
 package com.afuya.study.spring01ioc.bean;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +25,16 @@ public class User {
 
     public User() {
         System.out.println("User的无参构造方法 执行了...");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("postConstruct方法 执行了...");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("preDestroy方法 执行了...");
     }
 
     private void init() {
